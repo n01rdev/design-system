@@ -1,0 +1,45 @@
+---
+import { default as config } from '../../../config/index';
+
+const SITE = config.SITE;
+const OPEN_GRAPH = config.OPEN_GRAPH;
+export interface Props {
+    content: any;
+    site: any;
+    canonicalURL: URL | string;
+}
+
+function isValidURL(string) {
+    try {
+        new URL(string);
+        return true;
+    } catch (_) {
+        return false;
+    }
+}
+---
+
+<!-- Page Metadata -->
+<link rel="canonical" href={Astro.props.canonicalURL} />
+
+<!-- OpenGraph Tags -->
+<meta property="og:title" content={Astro.props.content.title ? `${Astro.props.content.title} 🚀 ${SITE.title}` : SITE.title} />
+<meta property="og:type" content="article" />
+<meta property="og:url" content={Astro.props.canonicalURL} />
+<meta property="og:locale" content={Astro.props.content.ogLocale ?? SITE.defaultLanguage} />
+<meta property="og:image" content={isValidURL(Astro.props.content?.image?.src) ? new URL(Astro.props.content?.image?.src, Astro.site) : isValidURL(OPEN_GRAPH.image.src) ? new URL(OPEN_GRAPH.image.src, Astro.site) : ''} />
+<meta property="og:image:alt" content={Astro.props.content?.image?.alt ?? OPEN_GRAPH.image.alt} />
+<meta name="description" property="og:description" content={Astro.props.content.description ? Astro.props.content.description : SITE.description} />
+<meta property="og:site_name" content={SITE.title} />
+
+<!-- JSON-LD structured data -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "{Astro.props.content.title ? `${Astro.props.content.title} 🚀 ${SITE.title}` : SITE.title}",
+        "description": "{Astro.props.content.description ? Astro.props.content.description : SITE.description}",
+        "url": "{Astro.props.canonicalURL}",
+        "image": "{isValidURL(Astro.props.content?.image?.src) ? new URL(Astro.props.content?.image?.src, Astro.site) : isValidURL(OPEN_GRAPH.image.src) ? new URL(OPEN_GRAPH.image.src, Astro.site) : ''}"
+    }
+</script>

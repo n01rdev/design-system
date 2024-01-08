@@ -1,9 +1,30 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import { default as config } from '../config/index';
+import navItems from '../items/navItems';
+import Background from '../components/astro/core/Background.astro';
+
+const SITE = config.SITE;
 ---
-
-<Layout title="Welcome to Astro.">
-	<main>
-
-	</main>
-</Layout>
+<div class="relative min-h-screen text-center">
+	<Background />
+	<header class="pt-12 pb-24 px-4">
+		<div class="flex items-center justify-center p-4">
+			<img class="w-24 h-24 md:w-32 md:h-32 object-cover" src="/logo.svg" alt="Astro Design System Logo">
+		</div>
+		<h1 class=" text-white text-4xl font-medium drop-shadow-sm">{SITE.title}</h1>
+		<p class="text-lg mt-4 text-slate-300">{SITE.description}</p>
+	</header>
+	<nav>
+		<ul class="flex gap-4 max-w-5xl mx-auto text-left mt-12">
+			{
+				navItems.map(({ title, description, url, img }) => (
+					<a href={url} class="flex flex-col bg-white rounded-md hover:-translate-y-1 hover:shadow-lg transition-all flex-1 items-center p-4">
+						<img src={img} alt={title}>
+						<h2 class="text-lg font-medium">{title}</h2>
+						<p class="text-slate-500">{description}</p>
+					</a>
+				))
+			}
+		</ul>
+	</nav>
+</div>
