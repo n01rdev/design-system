@@ -8,12 +8,13 @@ import RightSidebar from '../components/astro/sideBar/RightSidebar.astro';
 import config from '../config/index';
 
 const {currentPage, content} = Astro.props;
-const baseURL = "http://localhost:4321";
+const baseURL = config.SITE.baseUri;
 const currentPath = new URL(Astro.request.url).pathname;
 const canonicalURL = `${baseURL}${currentPath}`;
 const dir = content?.dir ?? 'ltr';
 const lang = content?.lang ?? 'en';
 const title = content?.title ? `${content.title} 🚀 ${config.SITE.title}` : config.SITE.title;
+const githubEditUrl = `https://github.com/${config.SITE.github}/${config.SITE.repo}/blob/main/src`;
 ---
 
 <!doctype html>
@@ -35,7 +36,7 @@ const title = content?.title ? `${content.title} 🚀 ${config.SITE.title}` : co
     </div>
     <main class="py-4 px-8 pb-32 col-span-6 overflow-auto">
         <div>
-            <PageContent content={content}>
+            <PageContent content={content} githubEditUrl={githubEditUrl}>
                 <slot/>
             </PageContent>
         </div>

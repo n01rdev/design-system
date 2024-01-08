@@ -1,7 +1,7 @@
 export default [
     {
         title: 'Core',
-        description: 'Base colors, typography, shadows, and more.',
+        description: 'Base colors, typography and more.',
         url: '/core/introduction',
         img: '/Core.jpg'
     },

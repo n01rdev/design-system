@@ -1,11 +1,7 @@
 ---
-import config from '../../../config/index';
-
-const { currentPage, content } = Astro.props;
+const { content, githubEditUrl } = Astro.props;
 const title = content.title;
 // const headers = content.astro.headers;
-
-const githubEditUrl = `https://github.com/${config.SITE.github}/edit/main/${currentPage}.astro`;
 ---
 
 <article id="article" class="content" role="main">
@@ -14,6 +10,7 @@ const githubEditUrl = `https://github.com/${config.SITE.github}/edit/main/${curr
         <nav class="block sm:hidden">
         </nav>
         <slot />
+        <div class="mt-4"></div>
         <a href={githubEditUrl} target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
     </section>
 </article>

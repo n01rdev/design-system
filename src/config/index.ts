@@ -4,7 +4,9 @@ export default {
         description: "Easy design System Maker.",
         defaultLanguage: "en",
         github: "n01rdev",
+        repo: "design-system",
         linkedin: "azdev",
+        baseUri: "localhost:4321",
     },
     OPEN_GRAPH: {
         image: {
